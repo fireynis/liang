@@ -1,0 +1,31 @@
+body{
+    background-image: url('../img/bright-squares.png');
+}
+
+.center {
+	background-image: url('../img/graphcoders-lil-fiber.png');
+	background-color: #FEFFEF;
+	z-index: 10;
+	-webkit-box-shadow: #45200a 0px 20px 10px;
+    -moz-box-shadow: #45200a 0px 20px 10px;
+    box-shadow: #45200a 0px 20px 10px;
+}
+
+.jumbotron {
+	background-image: url('../img/45-degree-fabric-light.png');
+	-webkit-box-shadow: #45200a 0px 5px 2px;
+    -moz-box-shadow: #45200a 0px 5px 2px;
+    box-shadow: #45200a 0px 5px 100px;
+    z-index: 900;
+}
+
+.home {
+	font-family: 'Merriweather', serif;
+}
+
+.fixed {
+    position: fixed; 
+    top: 0; 
+    height: 50px; 
+    z-index: 1;
+}

@@ -18,7 +18,7 @@
 |
 */
 
-require __DIR__.'/../lianglaravel/bootstrap/autoload.php';
+require __DIR__.'/../laravel-master/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ require __DIR__.'/../lianglaravel/bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../lianglaravel/bootstrap/start.php';
+$app = require_once __DIR__.'/../laravel-master/bootstrap/start.php';
 
 /*
 |--------------------------------------------------------------------------
