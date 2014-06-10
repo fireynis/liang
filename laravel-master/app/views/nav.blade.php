@@ -1,6 +1,6 @@
 <nav id="scroll" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
-			<a href="home" class="navbar-brand">Dr. Liang's Lab</a>
+			<a href="/" class="navbar-brand">Dr. Liang's Lab</a>
 		<ul class="nav navbar-nav">
 	        @foreach ($links as $linkkey => $linkvalue) 
 	            <li class="{{Request::path() == $linkvalue ? 'active':''}}"><a href="{{URL::to($linkvalue)}}">{{$linkkey}}</a></li>

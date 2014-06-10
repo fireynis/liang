@@ -21,5 +21,5 @@ Route::post('/quicksearch', 'SearchController@quickSearch');
 // Route::post('/advancedsearch', 'SearchController@advancedSearch');
 Route::post('/advancedsearch', function() {
 	$data = Input::all();
-		var_dump($data);
+	var_dump($data);
 });

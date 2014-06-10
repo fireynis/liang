@@ -40,7 +40,7 @@
 				<hr>
 				<form action="/advancedsearch" method="post" class="form-horizontal" role="form">
 					<h4>Search by RE position: </h4>
-					<label class="control-label" class="control-label">Select a chromosome</label>
+					<label  class="control-label">Select a chromosome</label>
 					<select name="chr">
 				        <option value="all" selected="selected">all </option>
 				        <option value="chr1">chr1 </option>
@@ -90,6 +90,30 @@
 			        <br>
 			        <label class="control-label">From ethnic group: </label>
 			        <select name="egroup">
+						<option value="any" selected="selected">any </option>
+						<option value="African American">African American </option>
+						<option value="Asian">Asian </option>
+						<option value="Asian/Alaskan Native">Asian/Alaskan Native </option>
+						<option value="Baka_Pygmy">Baka Pygmy</option>
+						<option value="Burunge">Burunge</option>
+						<option value="Chinese">Chinese</option>
+						<option value="Egyptian">Egyptian </option>
+						<option value="Egyptian/South American">Egyptian/South American </option>
+						<option value="European">European </option>
+						<option value="European/German Caucasian">European/German Caucasian </option>
+						<option value="Japanese">Japanese</option>
+						<option value="Mayan">Mayan</option>
+						<option value="M. East">Middle East</option>
+						<option value="Mex_Indian">Mex Indian</option>
+						<option value="Native_American">Native American </option>
+						<option value="N_Europe">Northern European</option>
+						<option value="Russian">Russian</option>
+						<option value="South American">South American </option>
+						<option value="SE_Asian">South East Asian</option>
+			        </select>
+			        <br>
+			        <label class="control-label">And/or not from ethnic group</label>
+			        <select name="egroup_not">
 						<option value="any" selected="selected">any </option>
 						<option value="African American">African American </option>
 						<option value="Asian">Asian </option>
