@@ -33,37 +33,92 @@ class SearchDB implements SearchInterface {
 
 	public function advancedSearch($data)
 	{
-		$query = "SELECT * FROM hg19.dbRIP WHERE ";
+		$from = "SELECT * FROM ".$data['genome'].".dbRIP as dr";
+		$query = "WHERE ";
 
 		$first = true;
+		$egroup = true;
 
 		if ($data['chr'] != 'all'){
 			$first =false;
-			$query .= "chrom = '".$data['chr']."'";
+			$query .= "dr.chrom = '".$data['chr']."'";
 		}
 		if($data['location'] != 'all'){
 			if($first){
-				$query .= "genoRegion LIKE '".$data['location']."%'";
+				$query .= "dr.genoRegion LIKE '".$data['location']."%'";
 				$first = false;
 			} else {
-				$query .= " AND genoRegion LIKE '".$data['location']."%'";
+				$query .= " AND dr.genoRegion LIKE '".$data['location']."%'";
 			}
 		}
 		if($data['source'] != 'all'){
 			if($first){
-				$query .= "polySource = '".$data['source']."'";
+				$query .= "dr.polySource = '".$data['source']."'";
 				$first = false;
 			} else {
-				$query .= " AND polySource = '".$data['source']."'";
+				$query .= " AND dr.polySource = '".$data['source']."'";
 			}
 		}
 		if($data['egroup'] != 'any'){
+			$from .= ", ".$data['genome'].".polyGenotype AS pg";
+			$egroup = false;
 			if($first){
-				$query .= "polySource = '".$data['egroup']."'";
+				$query .= "pg.ethnicGroup = '".$data['egroup']."' AND dr.name = pg.name";
 				$first = false;
 			} else {
-				$query .= " AND polySource = '".$data['egroup']."'";
+				$query .= " AND pg.ethnicGroup = '".$data['egroup']."' AND dr.name = pg.name";
 			}
+		}
+		if($data['egroup_not'] != 'blank'){
+			if ($egroup) {
+				$from .= ", ".$data['genome'].".polyGenotype AS pg";
+			}
+			if($first){
+				$query .= "pg.ethnicGroup != '".$data['egroup_not']."' AND dr.name = pg.name";
+				$first = false;
+			} else {
+				$query .= " AND pg.ethnicGroup != '".$data['egroup_not']."' AND dr.name = pg.name";
+			}
+		}
+		if ($data['hlevel'] != 'any') {
+			if ($data['genome'] == 'hg19' && $data['hlevel'] == 'hs') {
+				if($first){
+					$query .= "dr.name != '%h%'";
+					$first = false;
+				} else {
+					$query .= " AND dr.name != '%h%'";
+				}
+			}
+			if ($data['hlevel'] != 'hs') {
+				if($first){
+					$query .= "dr.name != '%h%'";
+					$first = false;
+				} else {
+					$query .= " AND dr.name != '%h%'";
+				}
+			}
+		}
+		if ($data['hsclass'] != 'any') {
+			if ($first) {
+				$query .= " dr.remarks = '".$data['hsclass']."%'";
+				$first = false;
+			} else {
+				$query .= " AND dr.remarks = '".$data['hsclass']."%'";
+			}
+		}
+		if ($data['sfamily'] != 'any') {
+			if (!$first) {
+				$query .= " AND";
+			}
+			$first = false;
+			if ($data['sfamily'] != "LINE" || $data['sfamily'] != "SINE" || $data['sfamily'] != "LTR" || $data['sfamily'] != "Other") {
+				$query .= " dr.polySubfamily LIKE '%".$data['sfamily']."%'";
+			} else {
+				$query .= " dr.polyClass = '".$data['sfamily']."'";
+			}
+		}
+		if (condition) {
+			# code...
 		}
 	}
 

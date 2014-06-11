@@ -39,6 +39,13 @@
 				<p>Search our database by selecting from the options below</p>
 				<hr>
 				<form action="/advancedsearch" method="post" class="form-horizontal" role="form">
+					<h4>Genome</h4>
+					<label>Select a genome</label>
+					<select name="genome">
+						<option value="hg19" selected="selected">hg19</option>
+						<option value="hg18">hg18</option>
+						<option value="hg17">hg17</option>
+					</select>
 					<h4>Search by RE position: </h4>
 					<label  class="control-label">Select a chromosome</label>
 					<select name="chr">
@@ -114,7 +121,7 @@
 			        <br>
 			        <label class="control-label">And/or not from ethnic group</label>
 			        <select name="egroup_not">
-						<option value="any" selected="selected">any </option>
+						<option value="blank" selected="selected">N/A </option>
 						<option value="African American">African American </option>
 						<option value="Asian">Asian </option>
 						<option value="Asian/Alaskan Native">Asian/Alaskan Native </option>
@@ -157,9 +164,9 @@
 			        <label class="control-label">Subfamily</label>
 			        <select name="sfamily">
 						<option selected="" value="any">any </option>
-						<option value="HERV">HERV </option>
-						<option value="SVA">SVA</option>
-						<option value="all_L1">all L1 </option>
+						<option value="LTR">HERV </option>
+						<option value="Other">SVA</option>
+						<option value="LINE">all L1 </option>
 						<option value="L1Ta">L1Ta </option>
 						<option value="L1Hs">L1HS </option>
 						<option value="L1PA2">L1PA2 </option>
@@ -167,7 +174,7 @@
 						<option value="L1PA4">L1PA4 </option>
 						<option value="L1PA5">L1PA5 </option>
 						<option value="NCLI">NCLI </option>
-						<option value="all_alu">all Alu </option>
+						<option value="SINE">all Alu </option>
 						<option value="Sx">Sx </option>
 						<option value="Sp">Sp </option>
 						<option value="Sq">Sq </option>
