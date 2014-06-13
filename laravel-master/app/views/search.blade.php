@@ -9,11 +9,15 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-offset-1 col-md-10 center">
-		@if(isset($results))
+		@if(isset($results) && count($results) > 1)
 		<p>Run </p><br>
-			@foreach ($results as $found) 
+			@foreach ($results as $found)
 				<pre>{{$found}}</pre>
 			@endforeach
+			<p><a href="{{URL::to('/search')}}">Back to Search</a></p>
+		@elseif(isset($results))
+			<p>Run </p><br>
+				<pre>{{$results}}</pre>
 			<p><a href="{{URL::to('/search')}}">Back to Search</a></p>
 		@else
 			{{Form::open(array('url' => '/quicksearch', 'role' => 'form', 'files' => true))}}
@@ -280,9 +284,9 @@
 			        </div>
 			        <label>Insertion supported by</label>
 			        <select name="studysupport">
-						<option value="1" selected="selected">1 or more</option>
-						<option value="2">2 or more</option>
-						<option value="3">3 or more</option>
+						<option value="%" selected="selected">1 or more</option>
+						<option value="%Study ID%Study ID%">2 or more</option>
+						<option value="%Study ID%Study ID%Study ID%">3 or more</option>
 			        </select> <b>studies</b>
 			        <br>
 					<input class="btn btn-success" value="Search" type="submit">

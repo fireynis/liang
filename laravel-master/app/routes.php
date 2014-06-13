@@ -18,8 +18,8 @@ Route::get('/description', 'PageController@showDescription');
 Route::get('/uses', 'PageController@showUses');
 
 Route::post('/quicksearch', 'SearchController@quickSearch');
-// Route::post('/advancedsearch', 'SearchController@advancedSearch');
-Route::post('/advancedsearch', function() {
-	$data = Input::all();
-	var_dump($data);
-});
+Route::post('/advancedsearch', 'SearchController@advancedSearch');
+// Route::post('/advancedsearch', function() {
+// 	$data = Input::all();
+// 	var_dump($data);
+// });

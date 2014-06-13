@@ -34,7 +34,7 @@ class SearchDB implements SearchInterface {
 	public function advancedSearch($data)
 	{
 		$from = "SELECT * FROM ".$data['genome'].".dbRIP as dr";
-		$query = "WHERE ";
+		$query = " WHERE ";
 
 		$first = true;
 		$egroup = true;
@@ -117,9 +117,75 @@ class SearchDB implements SearchInterface {
 				$query .= " dr.polyClass = '".$data['sfamily']."'";
 			}
 		}
-		if (condition) {
-			# code...
-		}
+		if ($data['plevel'] == 'any' && $data['pfreqn'] != 'any') {
+
+            $from = "SELECT * FROM dbRIP AS dr left join polyGenotype AS pg on dr.name = pg.name left join HERVGenotype hg on dr.name = hg.name'";
+            if ($first) {
+                $query = " GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . "or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . "and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
+                $first = false;
+            } else {
+                $query = " AND GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . "or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . "and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
+            }
+            
+		} else {
+            if ($data['plevel'] = 'LF') {
+                
+                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.3';
+
+            }
+            if ($data['plevel'] = 'IF') {
+                
+                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) > 0.3 and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <= 0.8 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))> 0.3 and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= 0.8';
+
+            }
+            if ($data['plevel'] = 'HF') {
+
+                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.8';
+
+            }
+        }
+        if (!empty($data['disease'])) {
+        	if ($data['disease'] == 'all') {
+        		if ($first) {
+            		$query .= " dr.disease != 'NA'";
+            	} else {
+            		$query .= " AND dr.disease != 'NA'";
+            	}
+        	} else {
+	            if ($first) {
+	            	$query .= " dr.disease = '%".$data['disease']."%'";
+	            } else {
+	            	$query .= " AND dr.disease = '%".$data['disease']."%'";
+	            }
+        	}
+        }
+        if (!empty($data['author'])) {
+        	if ($first) {
+        		$first = false;
+        		$query .= " dr.reference = '%".$data['author']."%'";
+        	} else {
+        		$query .= " AND dr.reference = '%".$data['author']."%'";
+        	}
+        }
+        if (!empty($data['studyID'])) {
+        	$studyId = explode(",", $data['studyID']);
+        	foreach ($studyId as $id) {
+				if ($first) {
+	        		$first = false;
+	        		$query .= " dr.reference = '%Study ID</b>:".$data['studyID']."%'";
+	        	} else {
+	        		$query .= " AND dr.reference = '%Study ID</b>:".$data['studyID']."%'";
+	        	}
+        	}
+        }
+        if ($first) {
+        	$query .= " dr.reference = ".$data['studysupport'];
+        } else {
+        	$query .= " AND dr.reference = ".$data['studysupport'];
+        }
+
+        return $from.$query;
+        
 	}
 
 	public function getFileData($file)
