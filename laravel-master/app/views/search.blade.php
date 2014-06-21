@@ -9,16 +9,8 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-offset-1 col-md-10 center">
-		@if(isset($results) && count($results) > 1)
-		<p>Run </p><br>
-			@foreach ($results as $found)
-				<pre>{{$found}}</pre>
-			@endforeach
-			<p><a href="{{URL::to('/search')}}">Back to Search</a></p>
-		@elseif(isset($results))
-			<p>Run </p><br>
-				<pre>{{$results}}</pre>
-			<p><a href="{{URL::to('/search')}}">Back to Search</a></p>
+		@if (isset($results))
+			{{var_dump($results)}}
 		@else
 			{{Form::open(array('url' => '/quicksearch', 'role' => 'form', 'files' => true))}}
 			<div class="form-group">

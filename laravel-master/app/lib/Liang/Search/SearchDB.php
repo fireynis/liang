@@ -119,12 +119,12 @@ class SearchDB implements SearchInterface {
 		}
 		if ($data['plevel'] == 'any' && $data['pfreqn'] != 'any') {
 
-            $from = "SELECT * FROM dbRIP AS dr left join polyGenotype AS pg on dr.name = pg.name left join HERVGenotype hg on dr.name = hg.name'";
+            $from = "SELECT * FROM dbRIP AS dr left join polyGenotype AS pg on dr.name = pg.name left join HERVGenotype hg on dr.name = hg.name";
             if ($first) {
-                $query = " GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . "or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . "and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
+                $query = " GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
                 $first = false;
             } else {
-                $query = " AND GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . "or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . "and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
+                $query = " AND GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
             }
             
 		} else {
@@ -184,7 +184,9 @@ class SearchDB implements SearchInterface {
         	$query .= " AND dr.reference = ".$data['studysupport'];
         }
 
-        return $from.$query;
+        $result = Illuminate\Database\DB::connection($data['genome'])->select($from.$query);
+
+        return $result;
         
 	}
 

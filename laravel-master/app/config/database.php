@@ -63,6 +63,39 @@ return array(
 			'prefix'    => '',
 		),
 
+		'hg17' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'hg17',
+			'username'  => 'root',
+			'password'  => 'jeremy05',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
+		'hg18' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'hg18',
+			'username'  => 'root',
+			'password'  => 'jeremy05',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
+		'hg19' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'hg19',
+			'username'  => 'root',
+			'password'  => 'jeremy05',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
