@@ -240,18 +240,18 @@
 			        </select>
 			        <br>
 			        <h4>Other:</h4>
-			        <label class="control-label">Resolution level of </label>
+			        <!-- <label class="control-label">Resolution level of </label>
 			        <select name="rlevel">
 						<option value="any" selected="selected">any</option>
-						<option value="r">regional</option>
-						<option value="p">positional</option>
+						<option value="R">regional</option>
+						<option value="P">positional</option>
 			        </select>
-			        <br>
+			        <br> -->
 			        <label class="control-label">Sequence integrity level of </label>
 			        <select name="ilevel">
 						<option value="any" selected="selected">any</option>
-						<option value="i">incomplete</option>
-						<option value="c">complete</option>
+						<option value="I">incomplete</option>
+						<option value="C">complete</option>
 			        </select>
 			        <i>Available for HG19 only</i>
 			        <br>

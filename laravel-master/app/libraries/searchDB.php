@@ -15,16 +15,16 @@ class searchDB {
 			$searchval = trim($searchval);
 
 			if (preg_match("/^chr[1-9XY][0-9]*$/i", $searchval)) {
-				$string = "SELECT * FROM ".$genome." WHERE chrom = '".$searchval."'";
+				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$genome." WHERE chrom = '".$searchval."'";
 			} elseif (preg_match("/^chr[1-9XY][0-9]*\:\d+\-\d+$/i", $searchval)) {
 				$array = explode(":", $searchval);
 				$chrom = $array[0];
 				$rangearray = explode("-", $array[1]);
-				$string = "SELECT * FROM dbRIP WHERE chrom = '".$chrom."' AND chromEnd >= ".$rangearray[0]." AND chromStart <= ".$rangearray[1];
+				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE chrom = '".$chrom."' AND chromEnd >= ".$rangearray[0]." AND chromStart <= ".$rangearray[1];
 			} elseif (preg_match("/^\d+/", $searchval)) {
-				$string = "SELECT * FROM dbRIP WHERE name = '".$searchval."'";
+				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE name = '".$searchval."'";
 			} else {
-				$string = "SELECT * FROM dbRIP WHERE originalId LIKE '%". $searchval."%'";
+				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE originalId LIKE '%". $searchval."%'";
 			}
 			array_push($outstring, $string);
 		}
@@ -33,19 +33,19 @@ class searchDB {
 
 	public static function advancedSearch($data)
 	{
-		$from = "SELECT * FROM ".$data['genome'].".dbRIP as dr";
-		$query = " WHERE ";
+		$from = "SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$data['genome'].".dbRIP as dr";
+		$query = " ";
 
 		$first = true;
 		$egroup = true;
 
 		if ($data['chr'] != 'all'){
 			$first =false;
-			$query .= "dr.chrom = '".$data['chr']."'";
+			$query .= "WHERE dr.chrom = '".$data['chr']."'";
 		}
 		if($data['location'] != 'all'){
 			if($first){
-				$query .= "dr.genoRegion LIKE '".$data['location']."%'";
+				$query .= "WHERE dr.genoRegion LIKE '".$data['location']."%'";
 				$first = false;
 			} else {
 				$query .= " AND dr.genoRegion LIKE '".$data['location']."%'";
@@ -53,7 +53,7 @@ class searchDB {
 		}
 		if($data['source'] != 'all'){
 			if($first){
-				$query .= "dr.polySource = '".$data['source']."'";
+				$query .= "WHERE dr.polySource = '".$data['source']."'";
 				$first = false;
 			} else {
 				$query .= " AND dr.polySource = '".$data['source']."'";
@@ -63,7 +63,7 @@ class searchDB {
 			$from .= ", ".$data['genome'].".polyGenotype AS pg";
 			$egroup = false;
 			if($first){
-				$query .= "pg.ethnicGroup = '".$data['egroup']."' AND dr.name = pg.name";
+				$query .= "WHERE pg.ethnicGroup = '".$data['egroup']."' AND dr.name = pg.name";
 				$first = false;
 			} else {
 				$query .= " AND pg.ethnicGroup = '".$data['egroup']."' AND dr.name = pg.name";
@@ -74,7 +74,7 @@ class searchDB {
 				$from .= ", ".$data['genome'].".polyGenotype AS pg";
 			}
 			if($first){
-				$query .= "pg.ethnicGroup != '".$data['egroup_not']."' AND dr.name = pg.name";
+				$query .= "WHERE pg.ethnicGroup != '".$data['egroup_not']."' AND dr.name = pg.name";
 				$first = false;
 			} else {
 				$query .= " AND pg.ethnicGroup != '".$data['egroup_not']."' AND dr.name = pg.name";
@@ -83,45 +83,48 @@ class searchDB {
 		if ($data['hlevel'] != 'any') {
 			if ($data['genome'] == 'hg19' && $data['hlevel'] == 'hs') {
 				if($first){
-					$query .= "dr.name != '%h%'";
+					$query .= "WHERE dr.name LIKE '%h%'";
 					$first = false;
 				} else {
-					$query .= " AND dr.name != '%h%'";
+					$query .= " AND dr.name LIKE '%h%'";
 				}
 			}
-			if ($data['hlevel'] != 'hs') {
+			if ($data['hlevel'] == 'rip') {
 				if($first){
-					$query .= "dr.name != '%h%'";
+					$query .= "WHERE dr.name NOT LIKE '%h%'";
 					$first = false;
 				} else {
-					$query .= " AND dr.name != '%h%'";
+					$query .= " AND dr.name NOT LIKE '%h%'";
 				}
 			}
 		}
 		if ($data['hsclass'] != 'any') {
 			if ($first) {
-				$query .= " dr.remarks = '".$data['hsclass']."%'";
+				$query .= "WHERE dr.remarks LIKE '".$data['hsclass']."<br>%'";
 				$first = false;
 			} else {
-				$query .= " AND dr.remarks = '".$data['hsclass']."%'";
+				$query .= " AND dr.remarks LIKE '".$data['hsclass']."<br>%'";
 			}
 		}
 		if ($data['sfamily'] != 'any') {
 			if (!$first) {
 				$query .= " AND";
+			} elseif ($first) {
+				$first = false;
+				$query .= " WHERE";
 			}
 			$first = false;
 			if ($data['sfamily'] != "LINE" || $data['sfamily'] != "SINE" || $data['sfamily'] != "LTR" || $data['sfamily'] != "Other") {
-				$query .= " dr.polySubfamily LIKE '%".$data['sfamily']."%'";
+				$query .= " dr.polyClass LIKE '%".$data['sfamily']."%'";
 			} else {
-				$query .= " dr.polyClass = '".$data['sfamily']."'";
+				$query .= " dr.polySubfamily LIKE '".$data['sfamily']."'";
 			}
 		}
 		if ($data['plevel'] == 'any' && $data['pfreqn'] != 'any') {
 
-            $from = "SELECT * FROM dbRIP AS dr left join polyGenotype AS pg on dr.name = pg.name left join HERVGenotype hg on dr.name = hg.name";
+            $from = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP AS dr left join polyGenotype AS pg on dr.name = pg.name left join HERVGenotype AS hg on dr.name = hg.name";
             if ($first) {
-                $query .= " GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
+                $query .= "WHERE  GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
                 $first = false;
             } else {
                 $query .= " AND GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
@@ -144,16 +147,34 @@ class searchDB {
 
             }
         }
+        if ($data['ilevel'] == 'I') {
+        	if ($first) {
+        		$first = false;
+        		$query .= "WHERE dr.name LIKE '%i'";
+        	} else {
+        		$query .= "AND dr.name LIKE '%i'";
+        	}
+        }
+        if ($data['ilevel'] == 'C') {
+        	if ($first) {
+        		$first = false;
+        		$query .= "WHERE dr.name NOT LIKE '%i'";
+        	} else {
+        		$query .= " AND dr.name NOT LIKE '%i'";
+        	}
+        }
         if (!empty($data['disease'])) {
-        	if ($data['disease'] == 'all') {
+        	if ($data['disease'] == 'all' || $data['disease'] == 'All') {
         		if ($first) {
-            		$query .= " dr.disease != 'NA'";
+        			$first = false;
+            		$query .= "WHERE dr.disease NOT like 'NA;NA' AND disease NOT LIKE 'NA'";
             	} else {
-            		$query .= " AND dr.disease != 'NA'";
+            		$query .= " AND dr.disease NOT like 'NA;NA' AND disease NOT LIKE 'NA'";
             	}
         	} else {
 	            if ($first) {
-	            	$query .= " dr.disease LIKE '%".$data['disease']."%'";
+	            	$first = false;
+	            	$query .= "WHERE dr.disease LIKE '%".$data['disease']."%'";
 	            } else {
 	            	$query .= " AND dr.disease LIKE '%".$data['disease']."%'";
 	            }
@@ -162,7 +183,7 @@ class searchDB {
         if (!empty($data['author'])) {
         	if ($first) {
         		$first = false;
-        		$query .= " dr.reference LIKE '%".$data['author']."%'";
+        		$query .= "WHERE  dr.reference LIKE '%".$data['author']."%'";
         	} else {
         		$query .= " AND dr.reference LIKE '%".$data['author']."%'";
         	}
@@ -172,19 +193,25 @@ class searchDB {
         	foreach ($studyId as $id) {
 				if ($first) {
 	        		$first = false;
-	        		$query .= " dr.reference LIKE '%Study ID</b>:".$data['studyID']."%'";
+	        		$query .= "WHERE dr.reference LIKE '%Study ID</b>:".$data['studyID']."%'";
 	        	} else {
 	        		$query .= " AND dr.reference LIKE '%Study ID</b>:".$data['studyID']."%'";
 	        	}
         	}
         }
+        // if ($data['rlevel'] != 'any') {
+        // 	if ($first) {
+        // 		$query .= "WHERE dr,name LIKE '%".$data['rlevel']."'";
+        // 	}
+        // }
         if ($first) {
-        	$query .= " dr.reference LIKE '".$data['studysupport']."'";
+        	$first = false;
+        	$query .= " WHERE dr.reference LIKE '".$data['studysupport']."'";
         } else {
         	$query .= " AND dr.reference LIKE '".$data['studysupport']."'";
         }
 
-        $result = DB::connection($data['genome'])->select($from.$query."LIMIT 9000");
+        $result = DB::connection($data['genome'])->select($from.$query);
 
         return $result;
         
