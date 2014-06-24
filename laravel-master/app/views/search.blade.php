@@ -269,9 +269,9 @@
 			        	</div>
 			        </div>
 			        <div class="form-group">
-			        	<label for="studyID" class="col-md-2">Group by study ID (Study ID's can be found <a href="http://genomics.brocku.ca:8080/dbRIP_ref.html">here</a>)</label>
+			        	<label for="studyID" class="col-md-2">Group by study ID (Study ID's can be found <a href="http://genomics.brocku.ca:8080/dbRIP_ref.html" target="_blank">here</a>)</label>
 			        	<div class="col-md-5">
-			        		<input type="text" class="input-sm form-control" id="author" name="author" placeholder="Multiple Study IDs should be delimited by commas">
+			        		<input type="text" class="input-sm form-control" id="studyID" name="studyID" placeholder="Multiple Study IDs should be delimited by commas">
 			        	</div>
 			        </div>
 			        <label>Insertion supported by</label>

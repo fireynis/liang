@@ -33,7 +33,7 @@ class searchDB {
 
 	public static function advancedSearch($data)
 	{
-		$from = "SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$data['genome'].".dbRIP as dr";
+		$from = "SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$data['genome'].".dbRIP dr";
 		$query = " ";
 
 		$first = true;
@@ -120,33 +120,6 @@ class searchDB {
 				$query .= " dr.polySubfamily LIKE '".$data['sfamily']."'";
 			}
 		}
-		if ($data['plevel'] == 'any' && $data['pfreqn'] != 'any') {
-
-            $from = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP AS dr left join polyGenotype AS pg on dr.name = pg.name left join HERVGenotype AS hg on dr.name = hg.name";
-            if ($first) {
-                $query .= "WHERE  GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
-                $first = false;
-            } else {
-                $query .= " AND GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
-            }
-            
-		} else {
-            if ($data['plevel'] == 'LF') {
-                
-                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.3';
-
-            }
-            if ($data['plevel'] == 'IF') {
-                
-                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) > 0.3 and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <= 0.8 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))> 0.3 and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= 0.8';
-
-            }
-            if ($data['plevel'] == 'HF') {
-
-                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.8';
-
-            }
-        }
         if ($data['ilevel'] == 'I') {
         	if ($first) {
         		$first = false;
@@ -183,7 +156,7 @@ class searchDB {
         if (!empty($data['author'])) {
         	if ($first) {
         		$first = false;
-        		$query .= "WHERE  dr.reference LIKE '%".$data['author']."%'";
+        		$query .= "WHERE dr.reference LIKE '%".$data['author']."%'";
         	} else {
         		$query .= " AND dr.reference LIKE '%".$data['author']."%'";
         	}
@@ -193,9 +166,9 @@ class searchDB {
         	foreach ($studyId as $id) {
 				if ($first) {
 	        		$first = false;
-	        		$query .= "WHERE dr.reference LIKE '%Study ID</b>:".$data['studyID']."%'";
+	        		$query .= "WHERE dr.reference LIKE '%Study ID</b>:".trim($id)."%'";
 	        	} else {
-	        		$query .= " AND dr.reference LIKE '%Study ID</b>:".$data['studyID']."%'";
+	        		$query .= " OR dr.reference LIKE '%Study ID</b>:".trim($id)."%'";
 	        	}
         	}
         }
@@ -209,6 +182,27 @@ class searchDB {
         	$query .= " WHERE dr.reference LIKE '".$data['studysupport']."'";
         } else {
         	$query .= " AND dr.reference LIKE '".$data['studysupport']."'";
+        }
+        if ($data['plevel'] == 'any' && $data['pfreqn'] != 'any') {
+            $from = "SELECT dr.chrom, dr.chromStart, dr.chromEnd, dr.name, dr.originalId FROM ".$data['genome'].".dbRIP AS dr left join ".$data['genome'].".polyGenotype AS pg on dr.name = pg.name left join ".$data['genome'].".HERVGenotype AS hg on dr.name = hg.name";
+            $query .= " GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
+		} elseif ($data['plevel'] != 'any') {
+			$from = "SELECT dr.chrom, dr.chromStart, dr.chromEnd, dr.name, dr.originalId FROM ".$data['genome'].".dbRIP AS dr left join ".$data['genome'].".polyGenotype AS pg on dr.name = pg.name left join ".$data['genome'].".HERVGenotype AS hg on dr.name = hg.name";
+            if ($data['plevel'] == 'LF') {
+                
+                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.3';
+
+            }
+            if ($data['plevel'] == 'IF') {
+                
+                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) > 0.3 and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <= 0.8 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))> 0.3 and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= 0.8';
+
+            }
+            if ($data['plevel'] == 'HF') {
+
+                $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.8';
+
+            }
         }
 
         $result = DB::connection($data['genome'])->select($from.$query);
