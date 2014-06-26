@@ -10,7 +10,30 @@
 	<div class="row">
 		<div class="col-md-offset-1 col-md-10 center">
 		@if (isset($results))
-			{{var_dump($results)}}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Chromosome</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>dbRIP ID</th>
+                        <th>Original ID's</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($results as $chrom)
+                    <tr>
+                        <td>{{$chrom->chrom}}</td>
+                        <td>{{$chrom->chromStart}}</td>
+                        <td>{{$chrom->chromEnd}}</td>
+                        <td>{{$chrom->name}}</td>
+                        <td>{{$chrom->originalId}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
 		@else
 			{{Form::open(array('url' => '/quicksearch', 'role' => 'form', 'files' => true))}}
 			<div class="form-group">

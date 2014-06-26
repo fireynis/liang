@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3534996533">
+    <data-source source="LOCAL" name="MySQL - hg19@localhost" uuid="d90887c7-a36a-4ecb-a53e-3b12b24d8283">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/hg19</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfc0dfcfdfd8dfcfdfc7dfd3df9adf9f</user-password>
+      <schema-pattern>hg17.* hg18.* hg19.*</schema-pattern>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
