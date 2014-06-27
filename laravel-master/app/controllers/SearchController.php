@@ -12,7 +12,7 @@ class SearchController extends BaseController {
 			$datain = Input::all();
 			$genome = $datain['genome'];
 		}
-		return View::make("search", $data=array('results' => searchDB::quickSearchData($datain, $genome)));
+		return View::make("search", $data=array('quickResults' => searchDB::quickSearchData($datain, $genome)));
 	}
 
 	public function advancedSearch()

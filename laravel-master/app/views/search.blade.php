@@ -34,6 +34,44 @@
         </tbody>
     </table>
 </div>
+@elseif (isset($quickResults))
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Search</th>
+            <th>Chromosome</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>dbRIP ID</th>
+            <th>Original ID's</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($quickResults as $chrom => $info)
+        @if($info == 'empty')
+        <tr>
+            <td>{{$chrom}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        @else
+        <tr>
+            <td>{{$chrom}}</td>
+            <td>{{$info[0]->chrom}}</td>
+            <td>{{$info[0]->chromStart}}</td>
+            <td>{{$info[0]->chromEnd}}</td>
+            <td>{{$info[0]->name}}</td>
+            <td>{{$info[0]->originalId}}</td>
+        </tr>
+        @endif
+        @endforeach
+        </tbody>
+    </table>
+</div>
 @else
 {{Form::open(array('url' => '/quicksearch', 'role' => 'form', 'files' => true))}}
 <div class="form-group">

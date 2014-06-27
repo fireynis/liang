@@ -4,31 +4,32 @@ class searchDB {
 
 	public static function quickSearchData($datain, $genome) {
 
-		$outstring = array();
 		if(isset($datain['quicksearch'])){
 			$id = explode(',', $datain['quicksearch']);
 		} else {
 			$id = $datain;
 		}
-
+        $results = array();
 		foreach ($id as $searchval) {
 			$searchval = trim($searchval);
 
 			if (preg_match("/^chr[1-9XY][0-9]*$/i", $searchval)) {
-				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$genome." WHERE chrom = '".$searchval."'";
+                $results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$genome.".dbRIP WHERE chrom = '".$searchval."'");
 			} elseif (preg_match("/^chr[1-9XY][0-9]*\:\d+\-\d+$/i", $searchval)) {
 				$array = explode(":", $searchval);
 				$chrom = $array[0];
 				$rangearray = explode("-", $array[1]);
-				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE chrom = '".$chrom."' AND chromEnd >= ".$rangearray[0]." AND chromStart <= ".$rangearray[1];
+				$results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE chrom = '".$chrom."' AND chromStart >= ".$rangearray[0]." AND chromEnd <= ".$rangearray[1]);
 			} elseif (preg_match("/^\d+/", $searchval)) {
-				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE name = '".$searchval."'";
+                $results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE name = '".$searchval."'");
 			} else {
-				$string = "SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE originalId LIKE '%". $searchval."%'";
+                $results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE originalId LIKE '%". $searchval."%'");
 			}
-			array_push($outstring, $string);
+            if(empty($results[$searchval])){
+                $results[$searchval] = "empty";
+            }
 		}
-		return $outstring;
+		return $results;
 	}
 
 	public static function advancedSearch($data)
