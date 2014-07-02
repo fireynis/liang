@@ -2,10 +2,14 @@
 
 class positionMapping {
 
-    public static function positionMapping() {
+    public static function positionMapping($input, $genome) {
 
-        $data = DB::connection('hg19')->select("SELECT name, originalId, chrom,chromStart, chromEnd, polySubfamily FROM dbRIP");
+        $query = explode('\n', $input);
 
+        var_dump($query);
+        exit(0);
+
+//        return $results;
     }
 
 }
