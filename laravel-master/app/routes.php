@@ -16,9 +16,8 @@ Route::get('/', 'PageController@showHome');
 Route::get('/search', 'PageController@showSearch');
 Route::get('/description', 'PageController@showDescription');
 Route::get('/uses', 'PageController@showUses');
-Route::get('/test', function() {
-    var_dump(DB::connection('hg19')->select("SELECT name, originalId, chrom,chromStart, chromEnd, polySubfamily FROM dbRIP"));
-});
+Route::get('/positionmapping', 'PageController@getPositionMapping');
+Route::get('/test', function() {});
 
 Route::post('/quicksearch', 'SearchController@quickSearch');
 Route::post('/advancedsearch', 'SearchController@advancedSearch');
