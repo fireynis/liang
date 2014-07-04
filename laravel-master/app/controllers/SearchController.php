@@ -21,4 +21,12 @@ class SearchController extends BaseController {
 		return View::make("search", $data=array('results' => searchDB::advancedSearch($datain)));
 	}
 
+    public function postPosMap()
+    {
+        if(Input::has('file'))
+        {
+            $genome = Input::only('genome')
+        }
+    }
+
 }

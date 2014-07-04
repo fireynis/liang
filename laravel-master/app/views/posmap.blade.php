@@ -17,13 +17,25 @@
                 <samp>chr14:20044209-20044610</samp><br><br>
             <form role="form">
                 <div class="form-group">
-                    <label class="control-label col-md-2">Enter data here</label>
+                    <label class="control-label">Enter data here</label>
                     <textarea name="data" class="form-control" rows="10"></textarea>
                 </div>
+                <p class="lead">Select which genome to search from</p>
+                <div class="form-group">
+                    <label class="control-label">Select a genome</label>
+                    <select name="genome">
+                        <option value="hg19" selected="selected">hg19</option>
+                        <option value="hg18">hg18</option>
+                        <option value="hg17">hg17</option>
+                    </select>
+                </div>
+                <br>
                 <p class="lead">If you would like to upload a file you may choose it below</p>
                 <p>The entries must be each on a new line, the same as the text entries above</p>
                 <label class="control-label">Select File:</label>
-                <input type="file">
+                <input name="file" type="file">
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             <br><br><br>
         </div>

@@ -21,3 +21,4 @@ Route::get('/test', function() {});
 
 Route::post('/quicksearch', 'SearchController@quickSearch');
 Route::post('/advancedsearch', 'SearchController@advancedSearch');
+Route::post('/positionmapping', 'SearchController@postPosMap');
