@@ -21,19 +21,12 @@ class SearchController extends BaseController {
 		return View::make("search", $data=array('results' => searchDB::advancedSearch($datain)));
 	}
 
-    public function postPositionMapping()
+    public function postPosMap()
     {
-        if (Input::hasFile('queries'))
+        if(Input::has('file'))
         {
-            $genome = Input::only('genome');
-            $datain = searchDB::getFileData(Input::file('queries')->getRealPath());
-        } else {
-            $datain = Input::all();
-            $genome = $datain['genome'];
+            $genome = Input::only('genome')
         }
-
-//        return View::make('posresults', $data=array('results' => positionMapping::positionMapping($datain, $genome)));
-
     }
 
 }

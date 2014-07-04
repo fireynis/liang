@@ -22,4 +22,9 @@ class PageController extends BaseController {
 		return View::make('uses');
 	}
 
+    public function getPositionMapping()
+    {
+        return View::make('posmap');
+    }
+
 }

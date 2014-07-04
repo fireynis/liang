@@ -2,14 +2,10 @@
 
 class positionMapping {
 
-    public static function positionMapping($input, $genome) {
+    public static function positionMapping() {
 
-        $query = explode('\n', $input);
+        
 
-        var_dump($query);
-        exit(0);
-
-//        return $results;
     }
 
 }
