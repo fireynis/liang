@@ -24,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($results as $chrom)
+                @foreach($results as $result)
                 <tr>
                     <td>{{$result->chrom}}</td>
                     <td>{{$result->chromStart}}</td>
@@ -145,7 +145,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="control-label col-md-3">Genomic region</label>
             <div class="col-md-4">
@@ -159,7 +159,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <h4>Search by source:</h4>
         <div class="form-group">
         <label class="control-label col-md-3">Inserstion identified from:</label>
@@ -173,7 +173,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="control-label col-md-3">From ethnic group: </label>
             <div class="col-md-4">
@@ -201,7 +201,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="control-label col-md-3">And/or not from ethnic group</label>
             <div class="col-md-4">
@@ -229,7 +229,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <h4>Search by RE classification:</h4>
         <div class="form-group">
             <label class="control-label col-md-3">Data type</label>
@@ -242,7 +242,7 @@
             </div>
             <i>HS-RE is only available for hg19</i>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="control-label col-md-3">HS-RE classes</label>
             <div class="col-md-4">
@@ -255,7 +255,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="control-label col-md-3">Subfamily</label>
             <div class="col-md-4">
@@ -304,7 +304,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <h4>Search by RE frequency:</h4>
         <div class="form-group">
             <label class="control-label col-md-3">Polymorphism frequency from</label>
@@ -340,7 +340,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="control-label col-md-3">Polymorphism levels</label>
             <div class="col-md-4">
@@ -352,7 +352,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <h4>Other:</h4>
         <!-- <label class="control-label">Resolution level of </label>
         <select class="form-control input-sm" name="rlevel">
@@ -360,7 +360,7 @@
             <option value="R">regional</option>
             <option value="P">positional</option>
         </select>
-        <br> -->
+         -->
         <div class="form-group">
             <label class="control-label col-md-3">Sequence integrity level of </label>
             <div class="col-md-4">
@@ -372,8 +372,8 @@
                 <i>Available for HG19 only</i>
             </div>
         </div>
-        <br>
-        <br>
+
+
         <div class="form-group">
             <label for="disease" class="control-label col-md-3">Associated with disease</label>
             <div class="col-md-5">
@@ -402,7 +402,7 @@
                 </select>
             </div>
         </div>
-        <br>
+
         <input class="btn btn-success" value="Search" type="submit">
         </form>
         <br>

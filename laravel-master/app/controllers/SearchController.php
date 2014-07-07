@@ -23,10 +23,15 @@ class SearchController extends BaseController {
 
     public function postPosMap()
     {
-        if(Input::has('file'))
+        if(Input::hasFile('file'))
         {
-            $genome = Input::only('genome')
+            $genome = Input::only('genome');
+            $datain = searchDB::getFileData(Input::file('searchfile')->getRealPath());
+        } else {
+            $datain = Input::all();
+            $genome = $datain['genome'];
         }
+        return View::make("posresults", $data=array('results' => positionMapping::posMap($datain, $genome)));
     }
 
 }
