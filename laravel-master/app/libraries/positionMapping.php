@@ -2,8 +2,9 @@
 
 class positionMapping {
 
-    public static function posMap($data, $genome) {
-	    $queries = preg_split('/\s+/', $data['data']);
+    public static function positionMapping() {
+
+        $queries = preg_split('/\s+/', $data['data']);
 
 	    if (empty($data['exval'])) {
 	        $exval = 20;
@@ -26,6 +27,7 @@ class positionMapping {
 
 
 //	    return $data;
+
     }
 
 }
