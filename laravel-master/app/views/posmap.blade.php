@@ -14,7 +14,8 @@
             <p>Example:</p>
                 <samp>chr1:7583132-7584649</samp><br>
                 <samp>chr19:57787844-57789418</samp><br>
-                <samp>chr14:20044209-20044610</samp><br><br>
+                <samp>chr14:20044209-20044610</samp><br>
+	            <samp>chr17:61695604-61696573</samp><br><br>
             <form role="form" method='POST' action="/positionmapping">
                 <div class="form-group">
                     <label class="control-label">Enter data here</label>
