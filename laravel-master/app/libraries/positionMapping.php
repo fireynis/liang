@@ -27,6 +27,10 @@ class positionMapping {
 		    }
 	    }
 
+	    if($i == 0) {
+		    return  'empty';
+	    }
+
 	    return $result;
 
     }
