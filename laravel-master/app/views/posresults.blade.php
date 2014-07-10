@@ -12,7 +12,7 @@
 			<br>
 				<p>There were no matches found.</p>
 			<br>
-			@elseif
+			@else
 			<table class="table table-hover">
 				<thead>
 				<tr>

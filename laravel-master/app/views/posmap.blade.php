@@ -16,7 +16,7 @@
                 <samp>chr19:57787844-57789418</samp><br>
                 <samp>chr14:20044209-20044610</samp><br>
 	            <samp>chr17:61695604-61696573</samp><br><br>
-            <form role="form" method='POST' action="/positionmapping">
+            <form enctype="multipart/form-data" role="form" method='POST' action="/positionmapping">
                 <div class="form-group">
                     <label class="control-label">Enter data here</label>
                     <textarea name="data" class="form-control" rows="10"></textarea>
@@ -33,8 +33,8 @@
                 <br>
                 <p class="lead">If you would like to upload a file you may choose it below</p>
                 <p>The entries must be each on a new line, the same as the text entries above</p>
-                <label class="control-label">Select File:</label>
-                <input name="file" type="file">
+	            {{Form::label('searchfile', "Select File")}}
+	            {{Form::file('searchfile')}}
 	            <br>
 	            <p>If you would like to set a custom expansion value enter it here. The default is 20bp</p>
 	            <div class="form-group">

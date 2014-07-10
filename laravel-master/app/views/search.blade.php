@@ -55,7 +55,7 @@
                 @if($info == 'empty')
                 <tr>
                     <td>{{$chrom}}</td>
-                    <td></td>
+                    <td>No results found</td>
                     <td></td>
                     <td></td>
                     <td></td>

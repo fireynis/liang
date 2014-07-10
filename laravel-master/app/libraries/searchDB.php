@@ -222,6 +222,9 @@ class searchDB {
 				break;
 			}
 			$filedata = trim($filedata);
+			if (empty($filedata)) {
+				continue;
+			}
 			array_push($returndata, $filedata);
 		}
 		return $returndata;

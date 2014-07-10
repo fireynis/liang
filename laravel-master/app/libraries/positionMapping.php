@@ -2,9 +2,13 @@
 
 class positionMapping {
 
-    public static function posMap($data, $genome) {
+    public static function posMap($data, $genome, $file) {
 
-        $queries = preg_split('/\s+/', $data['data']);
+		if (!$file) {
+			$queries = preg_split('/\s+/', $data['data']);
+		} else {
+			$queries = $data;
+		}
 
 	    if (empty($data['exval'])) {
 	        $exval = 20;
