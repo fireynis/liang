@@ -21,6 +21,7 @@
 					<th>End</th>
 					<th>dbRIP ID</th>
 					<th>Original ID's</th>
+					<th>Browser</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -31,6 +32,7 @@
 					<td>{{$result[0]->chromEnd}}</td>
 					<td>{{$result[0]->name}}</td>
 					<td>{{$result[0]->originalId}}</td>
+					<td>{{$result['browserLink']}}</td>
 				</tr>
 				@endforeach
 				</tbody>
