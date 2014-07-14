@@ -3,8 +3,8 @@ require 'bootstrap-sass'
 
 
 # Set this to the root of your project when deployed:
-http_path = "../laravel-master/public"
-css_dir = "../laravel-master/public/css"
+http_path = "../public_html"
+css_dir = "../public_html/css"
 sass_dir = "sass"
 images_dir = "img"
 javascripts_dir = "../laravel-master/public/js"

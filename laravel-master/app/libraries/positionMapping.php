@@ -29,18 +29,26 @@ class positionMapping {
 		    $end = trim($temp[1]);
 		    $check = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE chrom LIKE '".$chr."' AND chromStart BETWEEN ".($start-$exval)." AND ".($start+$exval)." AND chromEnd BETWEEN ".($end-$exval)." AND ".($end+$exval));
 		    if (count($check) > 0) {
-			    $result[$i] = $check;
-//			    $browserLink = "/cgi-bin/hgTracks\?clade=vertebrate&org=Human&db=".$genome."&position=chr:".$result[$i][0]->chromStart."-".$result[$i][0]->chromEnd."&pix=820&hgsid=453&Submit=Submit";
-//			    $result[$i]['browserLink'] = $browserLink;
-			    $i++;
+			    foreach ($check as $info) {
+				    $result[$i] = $info;
+				    if ($genome == 'hg19') {
+				        $result[$i]->browserLinkClass = 'btn btn-primary';
+					    $browserLink = "http://genomics.brocku.ca:8080/cgi-bin/hgTracks?clade=vertebrate&org=Human&db=".$genome."&position=".$result[$i]->chrom.":".$result[$i]->chromStart."-".$result[$i]->chromEnd."&pix=820&hgsid=453&Submit=Submit";
+				    } else {
+					    $result[$i]->browserLinkClass = 'btn btn-primary disabled';
+					    $browserLink = "#";
+				    }
+				    $result[$i]->browserLink = $browserLink;
+				    $i++;
+			    }
 		    }
 	    }
 
 	    if($i == 0) {
 		    return  'empty';
+	    } else {
+		    return $result;
 	    }
-
-	    return $result;
 
     }
 

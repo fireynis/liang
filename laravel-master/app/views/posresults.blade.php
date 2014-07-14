@@ -8,6 +8,8 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-offset-1 col-md-10 center">
+			<br>
+			<a class="btn btn-primary" href="search">Return to Position Mapping</a>
 			@if ($results == "empty")
 			<br>
 				<p>There were no matches found.</p>
@@ -27,12 +29,12 @@
 				<tbody>
 				@foreach($results as $result)
 				<tr>
-					<td>{{$result[0]->chrom}}</td>
-					<td>{{$result[0]->chromStart}}</td>
-					<td>{{$result[0]->chromEnd}}</td>
-					<td>{{$result[0]->name}}</td>
-					<td>{{$result[0]->originalId}}</td>
-					<td>{{$result['browserLink']}}</td>
+					<td>{{$result->chrom}}</td>
+					<td>{{$result->chromStart}}</td>
+					<td>{{$result->chromEnd}}</td>
+					<td>{{$result->name}}</td>
+					<td>{{$result->originalId}}</td>
+					<td><a href="{{$result->browserLink}}" class="{{$result->browserLinkClass}}" target="_blank">Browser</a></td>
 				</tr>
 				@endforeach
 				</tbody>

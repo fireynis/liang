@@ -114,7 +114,6 @@ class searchDB {
 				$first = false;
 				$query .= " WHERE";
 			}
-			$first = false;
 			if ($data['sfamily'] != "LINE" || $data['sfamily'] != "SINE" || $data['sfamily'] != "LTR" || $data['sfamily'] != "Other") {
 				$query .= " dr.polyClass LIKE '%".$data['sfamily']."%'";
 			} else {
@@ -179,7 +178,6 @@ class searchDB {
         // 	}
         // }
         if ($first) {
-        	$first = false;
         	$query .= " WHERE dr.reference LIKE '".$data['studysupport']."'";
         } else {
         	$query .= " AND dr.reference LIKE '".$data['studysupport']."'";
