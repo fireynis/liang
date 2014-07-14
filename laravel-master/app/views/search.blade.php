@@ -21,16 +21,21 @@
                     <th>End</th>
                     <th>dbRIP ID</th>
                     <th>Original ID's</th>
+	                <th>Browser</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($results as $result)
+                @if($result == $results['genome'] || $result == $results['browserLinkClass'])
+                <?php continue;?>
+                @endif
                 <tr>
                     <td>{{$result->chrom}}</td>
                     <td>{{$result->chromStart}}</td>
                     <td>{{$result->chromEnd}}</td>
                     <td>{{$result->name}}</td>
                     <td>{{$result->originalId}}</td>
+	                <td><a target="_blank" class="{{$results['browserLinkClass']}}" href="http://genomics.brocku.ca:8080/cgi-bin/hgTracks?clade=vertebrate&org=Human&db={{$results['genome']}}&position={{$result->chrom}}:{{$result->chromStart}}-{{$result->chromEnd}}&pix=820&hgsid=453&Submit=Submit">Browser</a></td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -48,6 +53,7 @@
                     <th>End</th>
                     <th>dbRIP ID</th>
                     <th>Original ID's</th>
+	                <th>Browser</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,6 +67,8 @@
                     <td></td>
                     <td></td>
                 </tr>
+                @elseif($info == $quickResults['genome'] || $info == $quickResults['browserLinkClass'])
+                <?php continue;?>
                 @else
                 @foreach($info as $data)
                 <tr>
@@ -70,6 +78,7 @@
                     <td>{{$data->chromEnd}}</td>
                     <td>{{$data->name}}</td>
                     <td>{{$data->originalId}}</td>
+	                <td><a target="_blank" class="{{$quickResults['browserLinkClass']}}" href="http://genomics.brocku.ca:8080/cgi-bin/hgTracks?clade=vertebrate&org=Human&db={{$quickResults['genome']}}&position={{$data->chrom}}:{{$data->chromStart}}-{{$data->chromEnd}}&pix=820&hgsid=453&Submit=Submit">Browser</a></td>
                 </tr>
                 @endforeach
                 @endif

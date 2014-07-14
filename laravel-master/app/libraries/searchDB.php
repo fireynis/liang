@@ -29,6 +29,12 @@ class searchDB {
                 $results[$searchval] = "empty";
             }
 		}
+		if ($genome == 'hg19') {
+			$results['browserLinkClass'] = 'btn btn-primary';
+		} else {
+			$results['browserLinkClass'] = 'btn btn-primary disabled';
+		}
+		$results['genome'] = $genome;
 		return $results;
 	}
 
@@ -205,6 +211,13 @@ class searchDB {
         }
 
         $result = DB::connection($data['genome'])->select($from.$query);
+
+		if($data['genome'] == 'hg19') {
+			$result['browserLinkClass'] = 'btn btn-primary';
+		} else {
+			$result['browserLinkClass'] = 'btn btn-primary disabled';
+		}
+		$result['genome'] = $data['genome'];
 
         return $result;
         
