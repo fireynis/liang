@@ -210,7 +210,6 @@
                 </select>
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label col-md-3">And/or not from ethnic group</label>
             <div class="col-md-4">
@@ -238,7 +237,6 @@
                 </select>
             </div>
         </div>
-
         <h4>Search by RE classification:</h4>
         <div class="form-group">
             <label class="control-label col-md-3">Data type</label>
@@ -251,7 +249,6 @@
             </div>
             <i>HS-RE is only available for hg19</i>
         </div>
-
         <div class="form-group">
             <label class="control-label col-md-3">HS-RE classes</label>
             <div class="col-md-4">
@@ -264,7 +261,6 @@
                 </select>
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label col-md-3">Subfamily</label>
             <div class="col-md-4">
@@ -313,7 +309,6 @@
                 </select>
             </div>
         </div>
-
         <h4>Search by RE frequency:</h4>
         <div class="form-group">
             <label class="control-label col-md-3">Polymorphism frequency from</label>
@@ -361,7 +356,6 @@
                 </select>
             </div>
         </div>
-
         <h4>Other:</h4>
         <!-- <label class="control-label">Resolution level of </label>
         <select class="form-control input-sm" name="rlevel">

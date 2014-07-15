@@ -13,6 +13,9 @@
 		    	<li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::to('description')}}">Description</a></li>
 		    	<li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::to('uses')}}">dbRIP Usage</a></li>
 		    </ul>
+			<li><a href="http://genomics.brocku.ca:8080/cgi-bin/hgBlat?command=start">BLAT</a></li>
+			<li class="{{Request::path() == 'reference' ? 'active':''}}"><a href="/reference">References</a></li>
+			<li><a target="_blank" href="http://genome.ucsc.edu/">UCSC Genomes</a></li>
 		</ul>
 		</div>
 </nav>

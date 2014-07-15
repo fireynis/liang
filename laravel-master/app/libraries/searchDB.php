@@ -212,7 +212,7 @@ class searchDB {
 
         $result = DB::connection($data['genome'])->select($from.$query);
 
-		if($data['genome'] == 'hg19') {
+		if($data['genome'] == 'hg18') {
 			$result['browserLinkClass'] = 'btn btn-primary';
 		} else {
 			$result['browserLinkClass'] = 'btn btn-primary disabled';

@@ -27,4 +27,9 @@ class PageController extends BaseController {
         return View::make('posmap');
     }
 
+	public function getReference()
+	{
+		return View::make('references');
+	}
+
 }

@@ -18,6 +18,7 @@ Route::get('/description', 'PageController@showDescription');
 Route::get('/uses', 'PageController@showUses');
 Route::get('/positionmapping', 'PageController@getPositionMapping');
 Route::get('/test', function() {});
+Route::get('/reference', 'PageController@getReference');
 
 Route::post('/quicksearch', 'SearchController@quickSearch');
 Route::post('/advancedsearch', 'SearchController@advancedSearch');
