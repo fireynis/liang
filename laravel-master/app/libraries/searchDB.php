@@ -29,6 +29,7 @@ class searchDB {
                 $results[$searchval] = "empty";
             }
 		}
+		$makeFile = fileCreate::makeFile($results);
 		if ($genome == 'hg19') {
 			$results['browserLinkClass'] = 'btn btn-primary';
 		} else {
@@ -212,7 +213,9 @@ class searchDB {
 
         $result = DB::connection($data['genome'])->select($from.$query);
 
-		if($data['genome'] == 'hg18') {
+//		$makeFile = fileCreate::makeFile($result, $data['genome']);
+
+		if(!($data['genome'] == 'hg18')) {
 			$result['browserLinkClass'] = 'btn btn-primary';
 		} else {
 			$result['browserLinkClass'] = 'btn btn-primary disabled';
