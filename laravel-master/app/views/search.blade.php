@@ -12,6 +12,7 @@
         <br>
         @if (isset($results))
         <a class="btn btn-primary" href="search">Return to search</a>
+        <a class="btn btn-success" target="_blank" href="/tmp/{{$results['file']}}">Results file</a>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
@@ -26,7 +27,7 @@
                 </thead>
                 <tbody>
                 @foreach($results as $result)
-                @if($result == $results['genome'] || $result == $results['browserLinkClass'])
+                @if($result == $results['genome'] || $result == $results['browserLinkClass'] || $result == $results['file'])
                 <?php continue;?>
                 @endif
                 <tr>
@@ -43,6 +44,7 @@
         </div>
         @elseif (isset($quickResults))
         <a class="btn btn-primary" href="search">Return to search</a>
+        <a class="btn btn-success" target="_blank" href="/tmp/{{$quickResults['file']}}">Results file</a>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
@@ -67,7 +69,7 @@
                     <td></td>
                     <td></td>
                 </tr>
-                @elseif($info == $quickResults['genome'] || $info == $quickResults['browserLinkClass'])
+                @elseif($info == $quickResults['genome'] || $info == $quickResults['browserLinkClass'] || $info == $quickResults['file'])
                 <?php continue;?>
                 @else
                 @foreach($info as $data)

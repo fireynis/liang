@@ -10,38 +10,60 @@ class searchDB {
 			$id = $datain;
 		}
         $results = array();
+		$makeFile = null;
 		foreach ($id as $searchval) {
 			$searchval = trim($searchval);
 
 			if (preg_match("/^chr[1-9XY][0-9]*$/i", $searchval)) {
                 $results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$genome.".dbRIP WHERE chrom = '".$searchval."'");
+				if (is_null($makeFile)){
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome);
+				} else {
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome, $makeFile);
+				}
 			} elseif (preg_match("/^chr[1-9XY][0-9]*\:\d+\-\d+$/i", $searchval)) {
 				$array = explode(":", $searchval);
 				$chrom = $array[0];
 				$rangearray = explode("-", $array[1]);
 				$results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE chrom = '".$chrom."' AND chromStart >= ".$rangearray[0]." AND chromEnd <= ".$rangearray[1]);
+				if (is_null($makeFile)){
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome);
+				} else {
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome, $makeFile);
+				}
 			} elseif (preg_match("/^\d+/", $searchval)) {
                 $results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE name = '".$searchval."'");
+				if (is_null($makeFile)){
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome);
+				} else {
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome, $makeFile);
+				}
 			} else {
                 $results[$searchval] = DB::connection($genome)->select("SELECT chrom, chromStart, chromEnd, name, originalId FROM dbRIP WHERE originalId LIKE '%". $searchval."%'");
+				if (is_null($makeFile)){
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome);
+				} else {
+					$makeFile = fileCreate::makeFile($results[$searchval], $genome, $makeFile);
+				}
 			}
             if(empty($results[$searchval])){
                 $results[$searchval] = "empty";
             }
 		}
-		$makeFile = fileCreate::makeFile($results);
 		if ($genome == 'hg19') {
 			$results['browserLinkClass'] = 'btn btn-primary';
 		} else {
 			$results['browserLinkClass'] = 'btn btn-primary disabled';
 		}
 		$results['genome'] = $genome;
+		$results['file'] = $makeFile;
 		return $results;
 	}
 
 	public static function advancedSearch($data)
 	{
-		$from = "SELECT chrom, chromStart, chromEnd, name, originalId FROM ".$data['genome'].".dbRIP dr";
+		$select = 'SELECT chrom, chromStart, chromEnd, name, originalId';
+		$from = " FROM ".$data['genome'].".dbRIP dr";
 		$query = " ";
 
 		$first = true;
@@ -190,10 +212,12 @@ class searchDB {
         	$query .= " AND dr.reference LIKE '".$data['studysupport']."'";
         }
         if ($data['plevel'] == 'any' && $data['pfreqn'] != 'any') {
-            $from = "SELECT dr.chrom, dr.chromStart, dr.chromEnd, dr.name, dr.originalId FROM ".$data['genome'].".dbRIP AS dr left join ".$data['genome'].".polyGenotype AS pg on dr.name = pg.name left join ".$data['genome'].".HERVGenotype AS hg on dr.name = hg.name";
+	        $select = 'SELECT dr.chrom, dr.chromStart, dr.chromEnd, dr.name, dr.originalId';
+            $from = " FROM ".$data['genome'].".dbRIP AS dr left join ".$data['genome'].".polyGenotype AS pg on dr.name = pg.name left join ".$data['genome'].".HERVGenotype AS hg on dr.name = hg.name";
             $query .= " GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) >= " . $data['pfreqn'] . " and (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=" . $data['pfreqm'] . " or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))>= " . $data['pfreqn'] . " and (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr)) <= " . $data['pfreqm'];
 		} elseif ($data['plevel'] != 'any') {
-			$from = "SELECT dr.chrom, dr.chromStart, dr.chromEnd, dr.name, dr.originalId FROM ".$data['genome'].".dbRIP AS dr left join ".$data['genome'].".polyGenotype AS pg on dr.name = pg.name left join ".$data['genome'].".HERVGenotype AS hg on dr.name = hg.name";
+	        $select = 'SELECT dr.chrom, dr.chromStart, dr.chromEnd, dr.name, dr.originalId';
+			$from = $select." FROM ".$data['genome'].".dbRIP AS dr left join ".$data['genome'].".polyGenotype AS pg on dr.name = pg.name left join ".$data['genome'].".HERVGenotype AS hg on dr.name = hg.name";
             if ($data['plevel'] == 'LF') {
                 
                 $query .= ' GROUP BY dr.name having (sum(pg.plusPlus) + sum(pg.plusMinus) * 0.5)/ (sum(pg.plusPlus) + sum(pg.plusMinus) + sum(pg.minusMinus)) <=0.3 or (sum(hg.fltr) + sum(hg.fltrSltr) * 0.5 + sum(hg.fltrPre) * 0.5)/(sum(hg.fltr) + sum(hg.fltrSltr) + sum(hg.fltrPre) + sum(hg.sltrPre) +sum(hg.pre) + sum(hg.sltr))<= 0.3';
@@ -211,9 +235,9 @@ class searchDB {
             }
         }
 
-        $result = DB::connection($data['genome'])->select($from.$query);
+        $result = DB::connection($data['genome'])->select($select.$from.$query);
 
-//		$makeFile = fileCreate::makeFile($result, $data['genome']);
+		$makeFile = fileCreate::makeFileSql($from.$query, $data['genome']);
 
 		if(!($data['genome'] == 'hg18')) {
 			$result['browserLinkClass'] = 'btn btn-primary';
@@ -221,6 +245,7 @@ class searchDB {
 			$result['browserLinkClass'] = 'btn btn-primary disabled';
 		}
 		$result['genome'] = $data['genome'];
+		$result['file'] = $makeFile;
 
         return $result;
         

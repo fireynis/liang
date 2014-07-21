@@ -8,18 +8,11 @@
 
 class fileCreate {
 
-	public static function makeFile($results, $genome) {
+	public static function makeFile($results, $genome, $fileName = false) {
 
-		$fileName = "SearchRIP".(int)(time()+rand(1,1000))."_".date('Y-m-d');
-
-		$length = 0;
-
-//		foreach ($results as $data) {
-//			$info = DB::connection($genome)->select("SELECT * FROM dbRIP WHERE name = '".$data->name."'");
-//			if (strlen($info[0]->polySeq) > $length) {
-//				$Seqlength = strlen($info[0]->polySeq);
-//			}
-//		}
+		if(!$fileName) {
+			$fileName = "SearchRIP".(int)(time()+rand(1,1000))."_".date('Y-m-d');
+		}
 
 		foreach ($results as $data) {
 			$info = DB::connection($genome)->select("SELECT * FROM dbRIP WHERE name = '".$data->name."'");
@@ -28,4 +21,15 @@ class fileCreate {
 		}
 		return $fileName;
 	}
+
+	public static function makeFileSql($query, $genome) {
+
+		$fileName = "SearchRIP".(int)(time()+rand(1,1000))."_".date('Y-m-d');
+
+		$info = DB::connection($genome)->statement("SELECT * ".$query." INTO OUTFILE '/home/liang/public_html/tmp/".$fileName."'");
+
+		return $fileName;
+
+	}
+
 }
