@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('body')
 <div class="jumbotron">
-	<h1>Position Mapping</h1>
+	<h1><i style="color: #cc0000" class="fa fa-map-marker"></i> Position Mapping</h1>
 	<p>Results are listed below</p>
 </div>
 @include('nav')

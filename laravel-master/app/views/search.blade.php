@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('body')
 <div class="jumbotron">
-    <h1>Database SNP and Transposon Search</h1>
+    <h1><i style="color: #cc0000" class="fa fa-book"></i> Database SNP and Transposon Search</h1>
     <p>We have collected and maintained a full genomic database which you can use to search for SNP and Transposons quickly and easily.</p>
 </div>
 @include('nav')

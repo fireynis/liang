@@ -5,11 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Merriweather:900' rel='stylesheet' type='text/css'>
 {{ HTML::script('js/bootstrap.min.js'); }}
-<style type="text/css">
-	body {
-		margin-top: 15px;
-	}
-</style>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 	@yield('body')

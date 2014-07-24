@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('body')
 <div class="jumbotron">
-	<h1>References</h1>
+	<h1><i style="color: #cc0000" class="fa fa-flask"></i> References</h1>
 	<p>For all Alu, L1 and SVA insertions</p>
 </div>
 @include('nav')

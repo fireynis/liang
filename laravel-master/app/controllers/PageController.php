@@ -32,4 +32,9 @@ class PageController extends BaseController {
 		return View::make('references');
 	}
 
+	public function getUser()
+	{
+		return View::make('userdata');
+	}
+
 }

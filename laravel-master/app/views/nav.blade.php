@@ -2,20 +2,19 @@
 	<div class="container-fluid">
 			<a href="/" class="navbar-brand">Dr. Liang's Lab</a>
 		<ul class="nav navbar-nav">
-	        @foreach ($links as $linkkey => $linkvalue) 
-	            <li class="{{Request::path() == $linkvalue ? 'active':''}}"><a href="{{URL::to($linkvalue)}}">{{$linkkey}}</a></li>
-	        @endforeach
-	        <li class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		      More <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		    	<li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::to('description')}}">Description</a></li>
-		    	<li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::to('uses')}}">dbRIP Usage</a></li>
-		    </ul>
-			<li><a href="http://genomics.brocku.ca:8080/cgi-bin/hgBlat?command=start">BLAT</a></li>
+	        <li class="{{Request::path() == '/' ? 'active':''}}"><a href="{{URL::to('/')}}">Home</a></li>
+	        <li class="{{Request::path() == 'search' ? 'active':''}}"><a href="{{URL::to('search')}}">Search</a></li>
+	        <li class="{{Request::path() == 'positionmapping' ? 'active':''}}"><a href="{{URL::to('positionmapping')}}">Position Mapping</a></li>
+	        <li class="{{Request::path() == 'usercontent' ? 'active':''}}"><a href="{{URL::to('usercontent')}}">Submit Your Data</a></li>
+	      	<li><a href="http://genomics.brocku.ca:8080/cgi-bin/hgBlat?command=start">BLAT</a></li>
 			<li class="{{Request::path() == 'reference' ? 'active':''}}"><a href="/reference">References</a></li>
 			<li><a target="_blank" href="http://genome.ucsc.edu/">UCSC Genomes</a></li>
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">More <span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::to('description')}}">Description</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::to('uses')}}">dbRIP Usage</a></li>
+			</ul>
 		</ul>
 		</div>
 </nav>

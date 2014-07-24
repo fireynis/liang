@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('body')
 <div class="jumbotron">
-    <h1>Position Mapping</h1>
+    <h1><i style="color: #cc0000" class="fa fa-map-marker"></i> Position Mapping</h1>
     <p>Using our databases you can determine if a transposable element you have found is novel or not. If there is a match within our database it is not novel.</p>
 </div>
 @include('nav')

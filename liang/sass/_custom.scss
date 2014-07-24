@@ -1,5 +1,17 @@
 body{
-    background-image: url('../img/bright-squares.png');
+  padding-top: 15px;
+  background-image: url('../img/bright-squares.png');
+}
+
+@font-face {
+  font-family: FamilliarProBold;
+  font-weight: bold;
+  src: url('fonts/Familiar_Pro-Bold.otf');
+}
+@font-face {
+  font-family: Sling;
+  font-weight: bold;
+  src: url('fonts/SlingBold.ttf');
 }
 
 .center {
@@ -36,4 +48,7 @@ table {
 }
 table td {
   word-wrap:break-word;
+}
+.jumbotron {
+  font-family: Sling, serif;
 }
