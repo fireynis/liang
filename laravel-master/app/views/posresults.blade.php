@@ -9,11 +9,11 @@
 	<div class="row">
 		<div class="col-md-offset-1 col-md-10 center">
 			<br>
-			<a class="btn btn-primary" href="search">Return to Position Mapping</a>
+			<a class="btn btn-primary" href="positionmapping">Return to Position Mapping</a>
 			@if ($results == "empty")
-			<br>
-				<p>There were no matches found.</p>
-			<br>
+			<hr>
+				<p class="lead">There were no matches found.</p>
+			<hr>
 			@else
 			<table class="table table-hover">
 				<thead>

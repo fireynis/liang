@@ -2,7 +2,7 @@
 @section('body')
 <div class="jumbotron">
     <h1><i style="color: #cc0000" class="fa fa-map-marker"></i> Position Mapping</h1>
-    <p>Using our databases you can determine if a transposable element you have found is novel or not. If there is a match within our database it is not novel.</p>
+    <p>Using our databases you can determine if a transposable element you have found is novel or not.</p>
 </div>
 @include('nav')
 <div class="container-fluid">
@@ -44,9 +44,7 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <br><br><br>
         </div>
     </div>
 </div>
-<br><br><br>
 @stop

@@ -52,7 +52,7 @@
 				specific to a particular ethnic group, etc.
 				</dd><hr>
 			</dl>
-			<p>For information related to UCSC Genome Browser, please visit <a href="http://genome.ucsc.edu">UCSC Genome Website</a>.</p>
+			<p>For information related to UCSC Genome Browser, please visit <a class="btn btn-success btn-xs" href="http://genome.ucsc.edu">UCSC Genome Website</a>.</p>
 
 		</div>
 	</div>

@@ -20,6 +20,8 @@ body {
 .center {
   background-image: url("../img/graphcoders-lil-fiber.png");
   background-color: #FEFFEF;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
   border-radius: 10px;
   z-index: 10;
   -webkit-box-shadow: #45200a 0px 20px 10px;
@@ -27,7 +29,7 @@ body {
   box-shadow: #45200a 0px 20px 10px;
 }
 
-/* line 27, ../../liang/sass/_custom.scss */
+/* line 29, ../../liang/sass/_custom.scss */
 .jumbotron {
   background-image: url("../img/45-degree-fabric-light.png");
   -webkit-box-shadow: #45200a 0px 5px 2px;
@@ -36,12 +38,12 @@ body {
   z-index: 900;
 }
 
-/* line 35, ../../liang/sass/_custom.scss */
+/* line 37, ../../liang/sass/_custom.scss */
 .home {
   font-family: 'Merriweather', serif;
 }
 
-/* line 39, ../../liang/sass/_custom.scss */
+/* line 41, ../../liang/sass/_custom.scss */
 .fixed {
   position: fixed;
   top: 0;
@@ -49,18 +51,18 @@ body {
   z-index: 1;
 }
 
-/* line 45, ../../liang/sass/_custom.scss */
+/* line 47, ../../liang/sass/_custom.scss */
 table {
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-/* line 49, ../../liang/sass/_custom.scss */
+/* line 51, ../../liang/sass/_custom.scss */
 table td {
   word-wrap: break-word;
 }
 
-/* line 52, ../../liang/sass/_custom.scss */
+/* line 54, ../../liang/sass/_custom.scss */
 .jumbotron {
   font-family: Sling, serif;
 }
