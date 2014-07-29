@@ -19,8 +19,9 @@ Route::get('/uses', 'PageController@showUses');
 Route::get('/positionmapping', 'PageController@getPositionMapping');
 Route::get('/test', function() {});
 Route::get('/reference', 'PageController@getReference');
-Route::get('/usercontent', 'PageController@getUser');
+Route::get('/usercontent', 'PageController@getUserContent');
 
+Route::post('/usercontent', 'PageController@postUserContent');
 Route::post('/quicksearch', 'SearchController@quickSearch');
 Route::post('/advancedsearch', 'SearchController@advancedSearch');
 Route::post('/positionmapping', 'SearchController@postPosMap');
