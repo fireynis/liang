@@ -20,73 +20,73 @@
 				<div class="form-group">
 					<label for="chromosome" class="col-md-2">Chromosome</label>
 					<div class="col-md-2">
-						<input name="chromosome" type="text" placeholder="eg chr4/chrX/chrY" class="form-control input-sm" id="chromosome">
+						<input name="chromosome" type="text" placeholder="eg chr4/chrX/chrY" value="{{Input::old('chromosome')}}" class="form-control input-sm" id="chromosome">
 					</div>
 					@if($errors->has('Chromosome'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Chromosome')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Chromosome')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="start" class="col-md-2">Start of Element</label>
 					<div class="col-md-2">
-						<input name="start" type="number" class="form-control input-sm " id="start">
+						<input name="start" type="number" class="form-control input-sm " value="{{Input::old('start')}}" id="start">
 					</div>
 					@if($errors->has('Start of Element'))
-					<div class="alert alert-danger alert-sm col-md-3">{{$errors->first('Start of Element')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Start of Element')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="end" class="col-md-2">End of Element</label>
 					<div class="col-md-2">
-						<input name="end" type="number" class="form-control input-sm" id="end">
+						<input name="end" type="number" class="form-control input-sm" value="{{Input::old('end')}}" id="end">
 					</div>
 					@if($errors->has('End of Element'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('End of Element')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('End of Element')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-md-2">Name of Element</label>
 					<div class="col-md-4">
-						<input name="name" type="text" placeholder="eg 1002173" class="form-control input-sm" id="name">
+						<input name="name" type="text" placeholder="eg 1002173" class="form-control input-sm" value="{{Input::old('name')}}" id="name">
 					</div>
-					@if($errors->has('Name of Element'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Name of Element')}}</div>
+					@if($errors->has('Name'))
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Name')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="fprimer" class="col-md-2">Forward Primer</label>
 					<div class="col-md-4">
-						<input name="fprimer" type="text" placeholder="eg GATCAGG" class="form-control input-sm" id="fprimer">
+						<input name="fprimer" type="text" placeholder="eg GATCAGG" class="form-control input-sm" value="{{Input::old('fprimer')}}" id="fprimer">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="rprimer" class="col-md-2">Reverse Primer</label>
 					<div class="col-md-4">
-						<input name="rprimer" type="text" placeholder="eg GATCAGG" class="form-control input-sm" id="rprimer">
+						<input name="rprimer" type="text" placeholder="eg GATCAGG" class="form-control input-sm" value="{{Input::old('rprimer')}}" id="rprimer">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="class" class="col-md-2">Class</label>
 					<div class="col-md-2">
-						<input name="class" type="text" placeholder="eg SINE" class="form-control input-sm" id="class">
+						<input name="class" type="text" placeholder="eg SINE" class="form-control input-sm" value="{{Input::old('class')}}" id="class">
 					</div>
 					@if($errors->has('Class'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Class')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Class')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="family" class="col-md-2">Family</label>
 					<div class="col-md-2">
-						<input name="family" type="text" placeholder="eg Alu" class="form-control input-sm" id="family">
+						<input name="family" type="text" placeholder="eg Alu" class="form-control input-sm" value="{{Input::old('family')}}" id="family">
 					</div>
 					@if($errors->has('Family'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Family')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Family')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="sfamily" class="col-md-2">Subfamily</label>
 					<div class="col-md-2">
-						<input name="sfamily" type="text" placeholder="eg AluYa5" class="form-control input-sm" id="sfamily">
+						<input name="sfamily" type="text" placeholder="eg AluYa5" class="form-control input-sm" value="{{Input::old('sfamily')}}" id="sfamily">
 					</div>
 				</div>
 				<div class="form-group">
@@ -95,40 +95,40 @@
 						<input name="region" type="text" placeholder="eg intron:PDCL2:NM:152401:1/6 or intergenic, exon, intron" class="form-control input-sm" id="region">
 					</div>
 					@if($errors->has('Genomic Region'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Genomic Region')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Genomic Region')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="disease" class="col-md-2">Associated Diseases</label>
 					<div class="col-md-4">
-						<input name="disease" type="text" placeholder="eg cancer, huntington's" class="form-control input-sm" id="disease">
+						<input name="disease" type="text" placeholder="eg cancer, huntington's" class="form-control input-sm" value="{{Input::old('disease')}}" id="disease">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="submitter" class="col-md-2">Your Name</label>
 					<div class="col-md-4">
-						<input name="submitter" type="text" class="form-control input-sm" id="submitter">
+						<input name="submitter" type="text" class="form-control input-sm" value="{{Input::old('submitter')}}" id="submitter">
 					</div>
 					@if($errors->has('Your Name'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Your Name')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Your Name')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="ref" class="col-md-2">Peer Reviewed Article</label>
 					<div class="col-md-4">
-						<input name="ref" type="text" placeholder="Link to published article, such as PubMed" class="form-control input-sm" id="ref">
+						<input name="ref" type="text" placeholder="Link to published article, such as PubMed" class="form-control input-sm" value="{{Input::old('ref')}}" id="ref">
 					</div>
 					@if($errors->has('Peer Reviewed Article'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Peer Reviewed Article')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Peer Reviewed Article')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="seq" class="col-md-2">Sequence of Element</label>
 					<div class="col-md-6">
-						<textarea name="seq" id="seq" class="form-control" rows="4"></textarea>
+						<textarea name="seq" value="{{Input::old('seq')}}" id="seq" class="form-control" rows="4"></textarea>
 					</div>
 					@if($errors->has('Sequence of Element'))
-					<div class="alert alert-danger col-md-3">{{$errors->first('Sequence of Element')}}</div>
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Sequence of Element')}}</div>
 					@endif
 				</div>
 				<button type="submit" class="btn btn-success">Submit</button>

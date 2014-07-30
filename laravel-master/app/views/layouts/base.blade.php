@@ -10,19 +10,27 @@
 <body>
 	@yield('body')
 	<script>
-   $(document).ready(function(){
-       $(window).bind('scroll', function() {
-       var navHeight = $( window ).height() - 50;
-             if ($(window).scrollTop() > 195) {
-                 $('nav#scroll').addClass('navbar-fixed-top');
-                 $("nav#holder").show();
-             }
-             else {
-                 $('nav').removeClass('navbar-fixed-top');
-                 $("nav#holder").hide();
-             }
-        });
-    });
+
+   $(document).ready(function () {
+
+	   var menu = $('.navbar');
+	   var origOffsetY = menu.offset().top;
+
+	   function scroll() {
+		   if ($(window).scrollTop() >= origOffsetY) {
+			   $('.navbar').addClass('navbar-fixed-top');
+			   $('.center').addClass('menu-padding');
+		   } else {
+			   $('.navbar').removeClass('navbar-fixed-top');
+			   $('.center').removeClass('menu-padding');
+		   }
+
+
+	   }
+
+	   document.onscroll = scroll;
+
+   });
 	</script>
 </body>
 </html>

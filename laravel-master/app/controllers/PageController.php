@@ -63,7 +63,9 @@ class PageController extends BaseController {
 			'Sequence of Element' => 'required'
 		));
 		if ($validate->fails()) {
-			return Redirect::to('/usercontent')->withErrors($validate);
+			return Redirect::to('/usercontent')->withInput()->withErrors($validate);
+		} else {
+			insertIntoDb::insert($data);
 		}
 	}
 
