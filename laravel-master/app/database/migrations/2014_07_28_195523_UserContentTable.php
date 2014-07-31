@@ -13,6 +13,7 @@ class UserContentTable extends Migration {
 	public function up()
 	{
 		Schema::create('submissions', function($table) {
+			$table->increments('id');
 			$table->string('chrom');
 			$table->integer('chromStart');
 			$table->integer('chromEnd');
@@ -38,7 +39,7 @@ class UserContentTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Submissions');
+		Schema::drop('submissions');
 	}
 
 }
