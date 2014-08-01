@@ -114,6 +114,24 @@
 					@endif
 				</div>
 				<div class="form-group">
+					<label for="email" class="col-md-2">Your Email</label>
+					<div class="col-md-4">
+						<input name="email" type="text" class="form-control input-sm" value="{{Input::old('email')}}" id="email">
+					</div>
+					@if($errors->has('Your Email'))
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Your Email')}}</div>
+					@endif
+				</div>
+				<div class="form-group">
+					<label for="institution" class="col-md-2">Your Institution</label>
+					<div class="col-md-4">
+						<input name="institution" type="text" class="form-control input-sm" value="{{Input::old('institution')}}" id="institution">
+					</div>
+					@if($errors->has('Your Institution'))
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Your Institution')}}</div>
+					@endif
+				</div>
+				<div class="form-group">
 					<label for="ref" class="col-md-2">Peer Reviewed Article</label>
 					<div class="col-md-4">
 						<input name="ref" type="text" placeholder="Link to published article, such as PubMed" class="form-control input-sm" value="{{Input::old('ref')}}" id="ref">

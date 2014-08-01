@@ -49,16 +49,19 @@ class PageController extends BaseController {
 			'Family' => $data['family'],
 			'Genomic Region' => $data['region'],
 			'Your Name' => $data['submitter'],
+			'Your Email' => $data->email,
+			'Your Institution' => $data->institution,
 			'Peer Reviewed Article' => $data['ref'],
 			'Sequence of Element' => $data['seq']), array(
 			'Chromosome' => array('required', 'regex:/chr[1-9xyXY]/'),
 			'Start of Element' => 'required',
 			'End of Element' => 'required',
-			'Name' => 'required|min:7|max:9',
+			'Name' => array('required', 'regex:/\S/'),
 			'Class' => 'required',
 			'Family' => 'required',
-			'Genomic Region' => 'required',
 			'Your Name' => 'required|min:5',
+			'Your Email' => 'required|email',
+			'Your Institution' => 'required|min:5',
 			'Peer Reviewed Article' => 'required|active_url',
 			'Sequence of Element' => 'required'
 		));
