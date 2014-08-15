@@ -26,6 +26,7 @@ class UserContentTable extends Migration {
 			$table->string('polySeq');
 			$table->string('polySource');
 			$table->string('reference');
+			$table->string('ascertainingMethod');
 			$table->string('disease');
 			$table->string('genoRegion');
 			$table->timestamps();

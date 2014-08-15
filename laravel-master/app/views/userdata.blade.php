@@ -104,6 +104,104 @@
 						<input name="disease" type="text" placeholder="eg cancer, huntington's" class="form-control input-sm" value="{{Input::old('disease')}}" id="disease">
 					</div>
 				</div>
+				<h4>Ascertaining Methods</h4>
+				<p>Select all applicable options</p>
+				@if($errors->has('Ascertaining Method'))
+				<div class="bg-danger round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Ascertaining Method')}}</div>
+				@endif
+				<div class="form-group">
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:hg19"> C:Comparative genomics:hg19
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:hg19 vs primate genomes"> C:Comparative genomics:hg19 vs primate genomes
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:Reference genome vs individual genomes"> C:Comparative genomics:Reference genome vs individual genomes
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:Reference genome vs individual genomes:RP"> C:Comparative genomics:Reference genome vs individual genomes:RP
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:Reference genome vs individual genomes:RP|SR"> C:Comparative genomics:Reference genome vs individual genomes:RP|SR
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:Reference genome vs individual genomes:SR"> C:Comparative genomics:Reference genome vs individual genomes:SR
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative genomics:Reference genome vs individual genomes:SR|RP"> C:Comparative genomics:Reference genome vs individual genomes:SR|RP
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Comparative personal genomics:Venter"> C:Comparative personal genomics:Venter
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="C:Reference"> C:Reference
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E: fosmid-end sequencing"> E: fosmid-end sequencing
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E:Insertion-specific detection:PCR"> E:Insertion-specific detection:PCR
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E:Insertion-specific detection:PCR-SSCP"> E:Insertion-specific detection:PCR-SSCP
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E:Library screening:TE-specific hybridization"> E:Library screening:TE-specific hybridization
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E:Library screening:TGDA"> E:Library screening:TGDA
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E:Retrotransposon display:L1 display"> E:Retrotransposon display:L1 display
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input name="asc_method[]" type="checkbox" id="inlineCheckbox1" value="E:Retrotranspson display:ME-Scan"> E:Retrotranspson display:ME-Scan
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label class="checkbox-inline">
+							<input id="other" type="checkbox" id="inlineCheckbox1" value="other"> Other
+						</label>
+					</div>
+				</div>
+				<div class="form-group ascHide">
+					<label for="asc_method " class="col-md-2">Please enter the method here: </label>
+					<div class="col-md-4">
+						<input name="asc_method[]" type="text" class="form-control input-sm" value="{{Input::old('asc_method')}}">
+					</div>
+				</div>
 				<div class="form-group">
 					<label for="submitter" class="col-md-2">Your Name</label>
 					<div class="col-md-4">
@@ -167,18 +265,28 @@
 <script>
 	$(document).ready(function(){
 		$('.pubHide').hide();
+		$('.ascHide').hide();
 		if ($('#ref').val() == 'published') {
 			$('.pubHide').show();
 		}
 		$('#ref').on('change', function() {
 			if ( this.value == 'published')
-			//.....................^.......
 			{
 				$(".pubHide").show();
 			}
 			else
 			{
 				$(".pubHide").hide();
+			}
+		});
+		$('#other').on('change', function() {
+			if ( this.checked == true)
+			{
+				$(".ascHide").show();
+			}
+			else
+			{
+				$('.ascHide').hide();
 			}
 		});
 	});

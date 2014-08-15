@@ -40,6 +40,10 @@ class PageController extends BaseController {
 	public function postUserContent() {
 		$data = Input::all();
 
+		if(!isset($data['asc_method']) || is_null($data['asc_method'])) {
+			$data['asc_method'] = '';
+		}
+
 		$validate = Validator::make(array(
 			'Chromosome' => $data['chromosome'],
 			'Start of Element' => $data['start'],
@@ -48,6 +52,7 @@ class PageController extends BaseController {
 			'Class' => $data['class'],
 			'Family' => $data['family'],
 			'Genomic Region' => $data['region'],
+			'Ascertaining Method' => $data['asc_method'],
 			'Your Name' => $data['submitter'],
 			'Your Email' => $data['email'],
 			'Your Institution' => $data['institution'],
@@ -60,6 +65,7 @@ class PageController extends BaseController {
 			'Name' => array('required', 'regex:/^[^\s]+$s/'),
 			'Class' => 'required',
 			'Family' => 'required',
+			'Ascertaining Method' => 'required',
 			'Your Name' => 'required|min:5',
 			'Your Email' => 'required|email',
 			'Your Institution' => 'required|min:5',
