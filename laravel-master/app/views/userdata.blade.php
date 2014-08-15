@@ -132,18 +132,28 @@
 					@endif
 				</div>
 				<div class="form-group">
-					<label for="ref" class="col-md-2">Peer Reviewed Article</label>
+					<label for="ref" class="col-md-2">Peer Reviewed Publication Status</label>
 					<div class="col-md-4">
-						<input name="ref" type="text" placeholder="Link to published article, such as PubMed" class="form-control input-sm" value="{{Input::old('ref')}}" id="ref">
+						<select name="ref" class="form-control input-sm"  id="ref" >
+							<option {{(Input::old('ref') == 'manuscript' ) ? 'selected':''}} value="manuscript">Manuscript</option>
+							<option {{(Input::old('ref') == 'submitted' ) ? 'selected':''}} value="submitted">Submitted</option>
+							<option {{(Input::old('ref') == 'published' ) ? 'selected':''}} value="published">Published</option>
+						</select>
 					</div>
-					@if($errors->has('Peer Reviewed Article'))
-					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Peer Reviewed Article')}}</div>
+				</div>
+				<div class="form-group pubHide">
+					<label for="pub" class="col-md-2">If published please provide a link to the article:</label>
+					<div class="col-md-4">
+						<input name="pub" type="text" class="form-control input-sm" value="{{Input::old('pub')}}" id="pub">
+					</div>
+					@if($errors->has('Article'))
+					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Article')}}</div>
 					@endif
 				</div>
 				<div class="form-group">
 					<label for="seq" class="col-md-2">Sequence of Element</label>
 					<div class="col-md-6">
-						<textarea name="seq" value="{{Input::old('seq')}}" id="seq" class="form-control" rows="4"></textarea>
+						<textarea name="seq" id="seq" class="form-control" rows="4">{{Input::old('seq')}}</textarea>
 					</div>
 					@if($errors->has('Sequence of Element'))
 					<div class="bg-danger col-md-3 round"><i class="fa fa-times" style="color:red"></i> {{$errors->first('Sequence of Element')}}</div>
@@ -154,4 +164,23 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('.pubHide').hide();
+		if ($('#ref').val() == 'published') {
+			$('.pubHide').show();
+		}
+		$('#ref').on('change', function() {
+			if ( this.value == 'published')
+			//.....................^.......
+			{
+				$(".pubHide").show();
+			}
+			else
+			{
+				$(".pubHide").hide();
+			}
+		});
+	});
+</script>
 @stop

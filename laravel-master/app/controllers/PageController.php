@@ -49,20 +49,22 @@ class PageController extends BaseController {
 			'Family' => $data['family'],
 			'Genomic Region' => $data['region'],
 			'Your Name' => $data['submitter'],
-			'Your Email' => $data->email,
-			'Your Institution' => $data->institution,
-			'Peer Reviewed Article' => $data['ref'],
+			'Your Email' => $data['email'],
+			'Your Institution' => $data['institution'],
+			'Peer Reviewed Publication Status' => $data['ref'],
+			'Article' => $data['pub'],
 			'Sequence of Element' => $data['seq']), array(
 			'Chromosome' => array('required', 'regex:/chr[1-9xyXY]/'),
 			'Start of Element' => 'required',
 			'End of Element' => 'required',
-			'Name' => array('required', 'regex:/\S/'),
+			'Name' => array('required', 'regex:/^[^\s]+$s/'),
 			'Class' => 'required',
 			'Family' => 'required',
 			'Your Name' => 'required|min:5',
 			'Your Email' => 'required|email',
 			'Your Institution' => 'required|min:5',
-			'Peer Reviewed Article' => 'required|active_url',
+			'Peer Reviewed Publication Status' => 'required',
+			'Article' => 'required_if:Peer Reviewed Publication Status,published|active_url',
 			'Sequence of Element' => 'required'
 		));
 		if ($validate->fails()) {

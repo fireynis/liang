@@ -24,8 +24,6 @@
 			   $('.navbar').removeClass('navbar-fixed-top');
 			   $('.center').removeClass('menu-padding');
 		   }
-
-
 	   }
 
 	   document.onscroll = scroll;
